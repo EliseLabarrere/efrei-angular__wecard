@@ -1,0 +1,22 @@
+<header>
+  <div class="header">
+    <h1 class="header__title">Collections wecards</h1>
+    <nav class="header__nav">
+      @if (currentUser()) {
+        <a routerLink="/" class="header__nav-link">Ma collection</a>
+        <a routerLink="/" class="header__nav-link">Mon compte</a>
+        @if (currentUser()?.isAdmin) {
+          <a routerLink="/admin" class="header__nav-link">Admin</a>
+        }
+        <button (click)="logout()" class="header__nav-link">Logout</button>
+      } @else {
+        <a routerLink="/auth/login" class="header__nav-link">Login</a>
+        <a routerLink="/auth/register" class="header__nav-link">Register</a>
+      }
+    </nav>
+    <div class="header__profile">
+      <button class="header__profile-btn"></button>
+      <button class="header__profile-btn"></button>
+    </div>
+  </div>
+</header>

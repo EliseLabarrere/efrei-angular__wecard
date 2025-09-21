@@ -1,0 +1,27 @@
+header {
+    @apply bg-myLightGray/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10 border-b border-primary/20 dark:border-primary/30;
+}
+
+.header {
+    @apply container mx-auto flex items-center justify-between h-16;
+
+    &__title {
+        @apply text-xl font-bold;
+    }
+
+    &__nav {
+        @apply hidden md:flex items-center gap-8;
+
+        &-link {
+            @apply text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors;
+        }
+    }
+
+    &__profile {
+        @apply flex items-center gap-4;
+
+        &-btn {
+            @apply flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 hover:bg-primary/20 text-gray-600 dark:text-gray-300 dark:hover:text-white transition-colors;
+        }
+    }
+}
