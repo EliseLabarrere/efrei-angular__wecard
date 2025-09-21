@@ -39,3 +39,6 @@ Thumbs.db
 
 # lock files
 /package-lock.json
+
+# Dev mode
+todo.md
