@@ -4,35 +4,29 @@ import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../services/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 class MockAuthService {
   login = jasmine.createSpy('login').and.returnValue(of(undefined));
-}
-
-class MockRouter {
-  navigate = jasmine.createSpy('navigate');
 }
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let authService: MockAuthService;
-  let router: MockRouter;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, LoginComponent],
-      providers: [
-        FormBuilder,
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: Router, useClass: MockRouter },
-      ],
+      imports: [ReactiveFormsModule, LoginComponent, RouterTestingModule],
+      providers: [FormBuilder, { provide: AuthService, useClass: MockAuthService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService) as unknown as MockAuthService;
-    router = TestBed.inject(Router) as unknown as MockRouter;
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
     fixture.detectChanges();
   });
 

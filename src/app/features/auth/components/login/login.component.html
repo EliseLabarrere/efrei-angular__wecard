@@ -42,6 +42,17 @@
       }
     </div>
 
+    <!-- Remind me button and Forget password link -->
+    <div class="connexion__form-action">
+      <label class="" for="remember-me"
+        ><input class="" id="remember-me" name="remember-me" type="checkbox" /> Se souvenir de
+        moi</label
+      >
+      <a class="connexion__form-action--link" routerLink="/auth/forget-password">
+        Mot de passe oublié ?
+      </a>
+    </div>
+
     <!-- Submit Button -->
     <div>
       <button
@@ -60,9 +71,7 @@
 
     <!-- Error Message -->
     @if (error()) {
-      <div class="">
-        <p class="">{{ error() }}</p>
-      </div>
+      <p class="connexion__form-field--error text-center">{{ error() }}</p>
     }
   </form>
 </div>
