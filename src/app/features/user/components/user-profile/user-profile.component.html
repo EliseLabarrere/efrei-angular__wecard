@@ -1,0 +1,144 @@
+<div class="connexion">
+  <div class="connexion__intro">
+    <h1 class="text-3xl font-bold text-center text-gray-900 dark:text-white">
+      Modifier votre profil
+    </h1>
+    <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+      Mettez à jour vos informations personnelles et vos comptes externes
+    </p>
+  </div>
+
+  <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="connexion__form">
+    <div class="connexion__form-group">
+      <!-- Firstname -->
+      <div class="connexion__form-field">
+        <label for="firstname" class="connexion__form-field--label">
+          Prénom <span class="connexion__form-field--star">*</span>
+        </label>
+        <input
+          id="firstname"
+          type="text"
+          formControlName="firstname"
+          class="connexion__form-field--input"
+          [class.border-red-500]="isFieldInvalid('firstname')"
+        />
+        @if (isFieldInvalid('firstname')) {
+          <p class="connexion__form-field--error">
+            {{ getFieldError('firstname') }}
+          </p>
+        }
+      </div>
+
+      <!-- Lastname -->
+      <div class="connexion__form-field">
+        <label for="lastname" class="connexion__form-field--label">
+          Nom de famille <span class="connexion__form-field--star">*</span>
+        </label>
+        <input
+          id="lastname"
+          type="text"
+          formControlName="lastname"
+          class="connexion__form-field--input"
+          [class.border-red-500]="isFieldInvalid('lastname')"
+        />
+        @if (isFieldInvalid('lastname')) {
+          <p class="connexion__form-field--error">
+            {{ getFieldError('lastname') }}
+          </p>
+        }
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="connexion__form-field">
+      <label for="email" class="connexion__form-field--label">
+        Adresse email <span class="connexion__form-field--star">*</span>
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="connexion__form-field--input"
+        [class.border-red-500]="isFieldInvalid('email')"
+      />
+      @if (isFieldInvalid('email')) {
+        <p class="connexion__form-field--error">
+          {{ getFieldError('email') }}
+        </p>
+      }
+    </div>
+
+    <p class="text-sm text-gray-500 dark:text-gray-400">Comptes externes (optionnel)</p>
+
+    <!-- Account : Weward -->
+    <div class="connexion__form-field">
+      <label for="accountWeward" class="connexion__form-field--label"> Pseudo Weward </label>
+      <input
+        id="accountWeward"
+        type="text"
+        formControlName="accountWeward"
+        class="connexion__form-field--input"
+        [class.border-red-500]="isFieldInvalid('accountWeward')"
+      />
+      @if (isFieldInvalid('accountWeward')) {
+        <p class="connexion__form-field--error">
+          {{ getFieldError('accountWeward') }}
+        </p>
+      }
+    </div>
+
+    <!-- Account : Insta -->
+    <div class="connexion__form-field">
+      <label for="accountInstagram" class="connexion__form-field--label"> Pseudo Insta </label>
+      <input
+        id="accountInstagram"
+        type="text"
+        formControlName="accountInstagram"
+        class="connexion__form-field--input"
+        [class.border-red-500]="isFieldInvalid('accountInstagram')"
+      />
+      @if (isFieldInvalid('accountInstagram')) {
+        <p class="connexion__form-field--error">
+          {{ getFieldError('accountInstagram') }}
+        </p>
+      }
+    </div>
+
+    <!-- Account : Discord -->
+    <div class="connexion__form-field">
+      <label for="accountDiscord" class="connexion__form-field--label"> Pseudo Discord </label>
+      <input
+        id="accountDiscord"
+        type="text"
+        formControlName="accountDiscord"
+        class="connexion__form-field--input"
+        [class.border-red-500]="isFieldInvalid('accountDiscord')"
+      />
+      @if (isFieldInvalid('accountDiscord')) {
+        <p class="connexion__form-field--error">
+          {{ getFieldError('accountDiscord') }}
+        </p>
+      }
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      [disabled]="editProfileForm.invalid || loading()"
+      class="connexion__form-submit"
+    >
+      @if (loading()) {
+        Mise à jour en cours...
+      } @else {
+        Enregistrer les modifications
+      }
+    </button>
+
+    <!-- Error Message -->
+    @if (error()) {
+      <div class="">
+        <p class="">{{ error() }}</p>
+      </div>
+    }
+  </form>
+</div>

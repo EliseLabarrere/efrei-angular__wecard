@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap, map } from 'rxjs';
 import { ApiService } from '../../../shared/services/api.service';
 import { TokenService } from '../../../shared/services/token.service';
-import { User, AuthResponse, RegisterPayload } from '../models/user.model';
+import { User, UserWithToken, AuthResponse, RegisterPayload } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -13,17 +13,15 @@ export class AuthService {
   currentUser = signal<User | null>(this.getCurrentUser());
 
   register(payload: RegisterPayload): Observable<User> {
-    return this.api.post<User>('auth/register', payload).pipe(
-      tap(user => {
-        this.setCurrentUser(user);
-      })
-    );
+    return this.api
+      .post<User>('auth/register', payload)
+      .pipe(tap(user => this.setCurrentUser(user)));
   }
 
-  login(credentials: { email: string; password: string }): Observable<User> {
+  login(credentials: { email: string; password: string }): Observable<UserWithToken> {
     return this.api.post<AuthResponse>('auth/login', credentials).pipe(
       tap(response => {
-        this.tokenService.setToken(response.token);
+        this.tokenService.setToken(response.user.token);
       }),
       map(response => {
         this.setCurrentUser(response.user);
