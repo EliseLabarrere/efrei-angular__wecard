@@ -3,7 +3,13 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './features/auth/interceptors/auth.interceptor';
+import { importProvidersFrom } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withInterceptors([AuthInterceptor]))],
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([AuthInterceptor])),
+    importProvidersFrom(FontAwesomeModule),
+  ],
 };
