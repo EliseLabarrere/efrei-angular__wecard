@@ -1,0 +1,90 @@
+<main class="container mx-auto flex-grow py-12 md:py-16">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Gestion des utilisateurs</h1>
+  </div>
+
+  <div class="bg-white dark:bg-background-dark/50 rounded-xl shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead class="bg-gray-50 dark:bg-gray-800/50">
+          <tr>
+            <th
+              class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+            >
+              Nom
+            </th>
+            <th
+              class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+            >
+              Email
+            </th>
+            <th
+              class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+            >
+              Date d'inscription
+            </th>
+            <th
+              class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+            >
+              Rôle
+            </th>
+            <th
+              class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+          @for (user of users(); track user.id) {
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900 dark:text-white">
+                      {{ user.firstname }} {{ user.lastname }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                {{ user.email }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                {{ user.createdAt | date: 'yyyy-MM-dd' }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                  [ngClass]="
+                    user.isAdmin
+                      ? 'bg-primary/20 text-primary-800 dark:text-primary-200'
+                      : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+                  "
+                >
+                  {{ user.isAdmin ? 'Administrateur' : 'Utilisateur' }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex items-center justify-end gap-2">
+                  <button
+                    (click)="toggleAdmin(user)"
+                    class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors"
+                  >
+                    <fa-icon class="icon" [icon]="faUserLock"></fa-icon>
+                  </button>
+                  <button
+                    (click)="deleteUser(user)"
+                    class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-500 transition-colors"
+                  >
+                    <fa-icon class="icon" [icon]="faTrash"></fa-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
