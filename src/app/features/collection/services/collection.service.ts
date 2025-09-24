@@ -15,7 +15,7 @@ export class CollectionService {
 
   getUsersCollection() {
     return this.api
-      .get<{ success: boolean; data: UserCollectionSummary[] }>('weward/random-user-collections')
+      .get<{ success: boolean; data: UserCollectionSummary[] }>('weward/users-collection')
       .pipe(map(res => res.data));
   }
 }

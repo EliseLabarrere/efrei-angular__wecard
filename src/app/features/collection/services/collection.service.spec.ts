@@ -41,7 +41,7 @@ describe('ChapterService', () => {
     req.flush({ success: true, data: mockResponse });
   });
 
-  it('should get random user collections', () => {
+  it('should get user collections', () => {
     const mockResponse: UserCollectionSummary[] = [
       {
         idUser: 1,
@@ -65,7 +65,7 @@ describe('ChapterService', () => {
       expect(res).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/api/weward/random-user-collections');
+    const req = httpMock.expectOne('http://localhost:3000/api/weward/users-collection');
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: mockResponse });
   });
