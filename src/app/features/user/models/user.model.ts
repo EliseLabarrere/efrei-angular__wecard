@@ -1,4 +1,4 @@
-import { Collection } from './collection.model';
+import { Collection } from '../../collection/models/collection.model';
 
 export interface User {
   id: number;

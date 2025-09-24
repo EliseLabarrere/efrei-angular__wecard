@@ -1,4 +1,4 @@
-import { UserCard as Card } from '../../collection/models/user-card.model';
+import { UserCard as Card } from '../../card/models/user-card.model';
 
 export interface Chapter {
   id: number;
