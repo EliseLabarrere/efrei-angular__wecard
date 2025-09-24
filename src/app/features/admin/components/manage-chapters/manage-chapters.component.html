@@ -1,0 +1,169 @@
+<main class="container mx-auto flex-grow py-12 md:py-16">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Gestion des chapitres</h1>
+  </div>
+
+  <div class="space-y-12">
+    <!-- Existing chapters -->
+    <div class="bg-white dark:bg-background-dark/50 p-6 sm:p-8 rounded-xl shadow-sm">
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
+        Chapitres existants
+      </h2>
+      <div class="space-y-6">
+        @for (chapter of chapters(); track chapter.id) {
+          <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start p-4 border border-gray-200 dark:border-gray-700 rounded-lg verti"
+          >
+            <!-- FR name -->
+            <div class="lg:col-span-4">
+              <label
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                for="name_fr_{{ chapter.id }}"
+                >Nom (FR)</label
+              >
+              <input
+                [(ngModel)]="chapter.fr"
+                class="w-full bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary text-gray-900 dark:text-white"
+                id="name_fr_{{ chapter.id }}"
+                type="text"
+              />
+            </div>
+
+            <!-- EN name -->
+            <div class="lg:col-span-4">
+              <label
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                for="name_en_{{ chapter.id }}"
+                >Nom (EN)</label
+              >
+              <input
+                [(ngModel)]="chapter.en"
+                class="w-full bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary text-gray-900 dark:text-white"
+                id="name_en_{{ chapter.id }}"
+                type="text"
+              />
+            </div>
+
+            <!-- Vintage / Ephemeral -->
+            <div class="lg:col-span-2 flex flex-col justify-end h-full">
+              <div class="flex items-center gap-4 mt-2 lg:mt-0">
+                <div class="flex items-center">
+                  <input
+                    [(ngModel)]="chapter.isVintage"
+                    class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    type="checkbox"
+                    id="vintage_{{ chapter.id }}"
+                  />
+                  <label
+                    class="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                    for="vintage_{{ chapter.id }}"
+                    >Vintage</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    [(ngModel)]="chapter.isEphemeral"
+                    class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    type="checkbox"
+                    id="ephemeral_{{ chapter.id }}"
+                  />
+                  <label
+                    class="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                    for="ephemeral_{{ chapter.id }}"
+                    >Éphémère</label
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Save -->
+            <div class="lg:col-span-2 flex items-end justify-end gap-2 h-full">
+              <button
+                (click)="updateChapter(chapter)"
+                class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+              >
+                Sauvegarder
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Add chapter -->
+    <div class="bg-white dark:bg-background-dark/50 p-6 sm:p-8 rounded-xl shadow-sm">
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
+        Ajouter un nouveau chapitre
+      </h2>
+      <div
+        class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start p-4 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg"
+      >
+        <div class="lg:col-span-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            for="new_name_fr"
+            >Nom (FR)</label
+          >
+          <input
+            [(ngModel)]="newChapter().fr"
+            class="w-full bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            id="new_name_fr"
+            placeholder="Ex: Chapitre des Océans"
+            type="text"
+          />
+        </div>
+
+        <div class="lg:col-span-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            for="new_name_en"
+            >Nom (EN)</label
+          >
+          <input
+            [(ngModel)]="newChapter().en"
+            class="w-full bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            id="new_name_en"
+            placeholder="Ex: Oceans Chapter"
+            type="text"
+          />
+        </div>
+
+        <div class="lg:col-span-2 flex flex-col justify-end h-full">
+          <div class="flex items-center gap-4 mt-2 lg:mt-0">
+            <div class="flex items-center">
+              <input
+                [(ngModel)]="newChapter().isVintage"
+                class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                type="checkbox"
+                id="new_vintage"
+              />
+              <label class="ml-2 block text-sm text-gray-900 dark:text-gray-300" for="new_vintage"
+                >Vintage</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                [(ngModel)]="newChapter().isEphemeral"
+                class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                type="checkbox"
+                id="new_ephemeral"
+              />
+              <label class="ml-2 block text-sm text-gray-900 dark:text-gray-300" for="new_ephemeral"
+                >Éphémère</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 flex items-end justify-end h-full">
+          <button
+            (click)="addChapter()"
+            class="w-full justify-center flex items-center gap-2 px-4 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-colors text-sm font-medium"
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
