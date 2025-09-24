@@ -1,0 +1,56 @@
+<div class="container mx-auto collection">
+  @if (loading()) {
+    <p>Chargement des collections...</p>
+  }
+
+  @if (error()) {
+    <p class="text-red-500">{{ error() }}</p>
+  }
+
+  <div class="collection__intro">
+    <div class="collection__intro-left">
+      <h1 class="collection__intro-left--title">Explorer</h1>
+
+      <p class="collection__intro-left--description">
+        Découvrez d'autres collectionneurs et leurs progrès
+      </p>
+    </div>
+    <div class="collection__intro-right">
+      <input
+        type="search"
+        id="search"
+        placeholder="Chercher un utilisateur..."
+        (input)="onSearchChange($event)"
+      />
+      <fa-icon class="icon" [icon]="faSearch"></fa-icon>
+    </div>
+  </div>
+  <div class="collection__grid">
+    @for (collection of filteredCollections(); track collection.idUser) {
+      <div
+        class="collection__user"
+        (click)="goToCollection(collection.idUser)"
+        role="link"
+        tabindex="0"
+        (keydown.enter)="goToCollection(collection.idUser)"
+        (keydown.space)="goToCollection(collection.idUser)"
+      >
+        <h3 class="collection__user--title">{{ collection.firstname }}</h3>
+        <div class="collection__user-stat">
+          <p class="collection__user-stat--label">Chapitres completés</p>
+          <p class="collection__user-stat--count">
+            {{ collection.ownedCards
+            }}<span class="collection__user-stat--total">/{{ collection.totalCards }}</span>
+          </p>
+        </div>
+        <div class="collection__user-stat">
+          <p class="collection__user-stat--label">Cartes collectés</p>
+          <p class="collection__user-stat--count">
+            {{ collection.ownedCompletedChapter
+            }}<span class="collection__user-stat--total">/{{ collection.totalChapter }}</span>
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</div>
