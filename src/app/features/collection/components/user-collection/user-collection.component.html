@@ -1,0 +1,112 @@
+<div class="container mx-auto collection">
+  @if (loading()) {
+    <p>Chargement de la collection...</p>
+  }
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <div class="collection__intro">
+    <div class="collection__intro-left">
+      @if (isOwnCollection()) {
+        <h1 class="collection__intro-left--title">Ma Collection</h1>
+      } @else {
+        <h1 class="collection__intro-left--title">Collection de {{ collection()?.firstname }}</h1>
+      }
+
+      @if (collection()) {
+        <p class="collection__intro-left--description">
+          {{ ownedCompletedChapterCount() }} / {{ chapters().length }} chapitres complétés
+        </p>
+        <p class="collection__intro-left--description">
+          {{ ownedCardsCount() }} / {{ collection()?.totalCards }} cartes
+        </p>
+      }
+    </div>
+    <div class="collection__intro-right">
+      <input
+        type="search"
+        id="search"
+        placeholder="Chercher un chapitre..."
+        (input)="onSearchChange($event)"
+      />
+      <fa-icon class="icon" [icon]="faSearch"></fa-icon>
+    </div>
+  </div>
+  @for (chapter of filteredChapters(); track chapter.idWewardChapter) {
+    <details class="collection__chapter">
+      <summary class="collection__chapter_summary">
+        <div class="collection__chapter_summary-left">
+          <h3 class="collection__chapter_summary-left--title">
+            {{ chapter.WewardChapter.fr }} ({{ chapter.WewardChapter.en }})
+          </h3>
+          @if (chapter.WewardChapter.isVintage) {
+            <span class="collection__chapter_summary-left--badge vintage">Vintage</span>
+          }
+          @if (chapter.WewardChapter.isEphemeral) {
+            <span class="collection__chapter_summary-left--badge ephemeral">Éphémère</span>
+          }
+        </div>
+        <span class="collection__chapter_summary-right">
+          @if (isChapterComplete(chapter)) {
+            <span class="collection__chapter_summary-right--count completed">
+              Chapitre complet
+            </span>
+          } @else {
+            <span class="collection__chapter_summary-right--count">
+              {{ getOwnedCardsCount(chapter) }}/9
+            </span>
+          }
+          <fa-icon class="icon" [icon]="faAngleDown"></fa-icon>
+        </span>
+      </summary>
+      <div class="collection__content">
+        @for (card of getCards(chapter); track card.id) {
+          <div class="collection__content_card" [ngClass]="card.count === 0 ? 'empty' : ''">
+            @if (card.count === 0) {
+              <p class="collection__content_card-left">
+                {{ card.rank }}
+              </p>
+            } @else {
+              <p class="collection__content_card-left" [appCardRarity]="card.rarity">
+                {{ card.rank }}
+              </p>
+            }
+
+            <div class="collection__content_card-middle">
+              <p class="collection__content_card-middle--text">{{ card.rarity }}</p>
+
+              <div class="">
+                @for (s of getStarsArray(card.stars); track $index) {
+                  @if (card.count === 0) {
+                    <span class="text-gray-300">
+                      {{ s === 1 ? '★' : '☆' }}
+                    </span>
+                  } @else {
+                    <span [appCardRarity]="card.rarity" styleType="color">
+                      {{ s === 1 ? '★' : '☆' }}
+                    </span>
+                  }
+                }
+              </div>
+            </div>
+            @if (isOwnCollection()) {
+              <input
+                type="number"
+                min="0"
+                class="collection__content_card-right--input"
+                [value]="card.count"
+                (input)="onCardCountInput(chapter, $event, card)"
+              />
+            } @else {
+              <span class="collection__content_card-right--badge" [appCardCount]="card.count">
+                x {{ card.count }}
+              </span>
+            }
+          </div>
+        }
+      </div>
+    </details>
+  }
+</div>
