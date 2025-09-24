@@ -3,10 +3,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ChapterService } from './chapter.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { UserChapter } from '../models/user-chapter.model';
-import { UserCollectionSummary } from '../../collection/models/user-collection-summary.model';
 
 describe('ChapterService', () => {
-  let service: ChapterService;
+  let chapterService: ChapterService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
@@ -15,7 +14,7 @@ describe('ChapterService', () => {
       providers: [ChapterService, ApiService],
     });
 
-    service = TestBed.inject(ChapterService);
+    chapterService = TestBed.inject(ChapterService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -24,7 +23,7 @@ describe('ChapterService', () => {
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(chapterService).toBeTruthy();
   });
 
   it('should update user chapter cards', () => {
@@ -51,7 +50,7 @@ describe('ChapterService', () => {
       },
     };
 
-    service.updateUserChapterCards(1, { card1: 1 }).subscribe(res => {
+    chapterService.updateUserChapterCards(1, { card1: 1 }).subscribe(res => {
       expect(res).toEqual(mockResponse);
     });
 
@@ -88,59 +87,11 @@ describe('ChapterService', () => {
       },
     ];
 
-    service.getUserChapters(1).subscribe(res => {
+    chapterService.getUserChapters(1).subscribe(res => {
       expect(res).toEqual(mockResponse);
     });
 
     const req = httpMock.expectOne('http://localhost:3000/api/weward/user-chapters/1');
-    expect(req.request.method).toBe('GET');
-    req.flush({ success: true, data: mockResponse });
-  });
-
-  it('should get user collection', () => {
-    const mockResponse: UserCollectionSummary = {
-      idUser: 1,
-      firstname: 'Didier',
-      totalCards: 5,
-      ownedCards: 5,
-      totalChapter: 1,
-      ownedCompletedChapter: 0,
-    };
-
-    service.getUserCollection(1).subscribe(res => {
-      expect(res).toEqual(mockResponse);
-    });
-
-    const req = httpMock.expectOne('http://localhost:3000/api/weward/user-collection/1');
-    expect(req.request.method).toBe('GET');
-    req.flush({ success: true, data: mockResponse });
-  });
-
-  it('should get random user collections', () => {
-    const mockResponse: UserCollectionSummary[] = [
-      {
-        idUser: 1,
-        firstname: 'Didier',
-        totalCards: 5,
-        ownedCards: 5,
-        totalChapter: 1,
-        ownedCompletedChapter: 0,
-      },
-      {
-        idUser: 2,
-        firstname: 'Alice',
-        totalCards: 3,
-        ownedCards: 3,
-        totalChapter: 1,
-        ownedCompletedChapter: 0,
-      },
-    ];
-
-    service.getRandomUserCollections().subscribe(res => {
-      expect(res).toEqual(mockResponse);
-    });
-
-    const req = httpMock.expectOne('http://localhost:3000/api/weward/random-user-collections');
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: mockResponse });
   });
