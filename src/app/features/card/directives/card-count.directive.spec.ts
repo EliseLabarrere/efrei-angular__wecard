@@ -6,7 +6,7 @@ import { CardCountDirective } from './card-count.directive';
 @Component({
   template: '<div [appCardCount]="count">Test</div>',
   standalone: true,
-  imports: [CardCountDirective], // <-- très important pour standalone
+  imports: [CardCountDirective],
 })
 class TestComponent {
   count = 0;
@@ -19,7 +19,7 @@ describe('CardCountDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TestComponent], // <-- TestComponent est standalone
+      imports: [TestComponent],
     });
 
     fixture = TestBed.createComponent(TestComponent);

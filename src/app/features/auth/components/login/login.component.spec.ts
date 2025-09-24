@@ -42,7 +42,7 @@ describe('LoginComponent', () => {
     const emailControl = component.loginForm.get('email');
     emailControl?.setValue('');
     expect(emailControl?.valid).toBeFalse();
-    expect(component.isFieldInvalid('email')).toBeFalse(); // pas touché
+    expect(component.isFieldInvalid('email')).toBeFalse();
     emailControl?.markAsTouched();
     expect(component.isFieldInvalid('email')).toBeTrue();
   });

@@ -1,4 +1,3 @@
-// @ts-check
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
@@ -30,7 +29,6 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      // Règles strictes pour un code propre
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-empty-function": "error",
       "@typescript-eslint/no-unused-vars": "error",
