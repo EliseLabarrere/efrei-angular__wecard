@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { UserCollectionComponent } from '../collection/components/user-collection/user-collection.component';
 import { ExploreCollectionComponent } from './components/explore-collection/explore-collection.component';
 
-export const AUTH_ROUTES: Routes = [
+export const COLLECTION_ROUTES: Routes = [
   {
     path: 'user/:userId',
     component: UserCollectionComponent,
