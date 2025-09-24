@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ChapterService } from './chapter.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { UserChapter } from '../models/user-chapter.model';
+import { Chapter } from '../models/chapter.model';
 
 describe('ChapterService', () => {
   let chapterService: ChapterService;
@@ -57,7 +58,6 @@ describe('ChapterService', () => {
     const req = httpMock.expectOne('http://localhost:3000/api/weward/my-chapters');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ idWewardChapter: 1, cards: { card1: 1 } });
-
     req.flush({ success: true, data: mockResponse });
   });
 
@@ -92,6 +92,35 @@ describe('ChapterService', () => {
     });
 
     const req = httpMock.expectOne('http://localhost:3000/api/weward/user-chapters/1');
+    expect(req.request.method).toBe('GET');
+    req.flush({ success: true, data: mockResponse });
+  });
+
+  it('should get all chapters', () => {
+    const mockResponse: Chapter[] = [
+      {
+        id: 1,
+        en: 'Chapter EN',
+        fr: 'Chapter FR',
+        isVintage: false,
+        isEphemeral: false,
+        cards: [],
+      },
+      {
+        id: 2,
+        en: 'Chapter2 EN',
+        fr: 'Chapter2 FR',
+        isVintage: true,
+        isEphemeral: true,
+        cards: [],
+      },
+    ];
+
+    chapterService.getAllChapters().subscribe(res => {
+      expect(res).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/api/weward/chapters');
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: mockResponse });
   });
