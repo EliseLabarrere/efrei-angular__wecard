@@ -1,59 +1,87 @@
 # EfreiAngularWecard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.1.
+EfreiAngularWecard est une application Angular permettant de gérer des collections de cartes Weward. Elle offre des fonctionnalités pour explorer, échanger et compléter des collections, tout en permettant aux utilisateurs de gérer leurs profils et leurs comptes externes.
 
-## Development server
+## Auteure
+Elise Labarrere
 
-To start a local development server, run:
+## Fonctionnalités principales
 
-```bash
-ng serve
-```
+- **Gestion des utilisateurs** : Inscription, connexion, réinitialisation de mot de passe et mise à jour du profil.
+- **Exploration des collections** : Parcourez les collections des autres utilisateurs et découvrez leurs progrès.
+- **Gestion des chapitres** : Ajoutez, modifiez et gérez les chapitres de cartes (pour les administrateurs).
+- **Échange de cartes** : Proposez des échanges pour compléter vos collections.
+- **Mode sombre** : Interface utilisateur adaptée au mode sombre.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Prérequis
 
-## Code scaffolding
+Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votre machine :
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- [Node.js](https://nodejs.org/) (version recommandée : 16 ou supérieure)
+- [Angular CLI](https://angular.io/cli) (version 19 ou supérieure)
 
-```bash
-ng generate component component-name
-```
+## Installation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+1. Clonez le dépôt :
 
 ```bash
-ng build
+git clone <URL_DU_DEPOT>
+cd efrei-angular--wecard
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+2. Installez les dépendances :
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+## Démarrage du serveur de développement
 
-For end-to-end (e2e) testing, run:
+Pour démarrer le serveur de développement, exécutez :
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Accédez ensuite à l'application dans votre navigateur à l'adresse suivante : [http://localhost:4200](http://localhost:4200).
 
-## Additional Resources
+## Scripts disponibles
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Démarrer le serveur de développement** : `npm start`
+- **Construire le projet** : `npm run build`
+- **Exécuter les tests unitaires** : `npm test`
+- **Linter le code** : `npm run lint`
+- **Formater le code** : `npm run format`
+
+## Tests unitaires
+
+Pour exécuter les tests unitaires avec Karma, utilisez :
+
+```bash
+npm test
+```
+
+## Structure du projet
+
+Voici un aperçu de la structure du projet :
+
+```bash
+src/
+├── app/
+│   ├── core/                # Services et gardes partagés
+│   ├── features/            # Fonctionnalités principales (auth, user, collection, etc.)
+│   ├── shared/              # Composants et services réutilisables
+│   ├── app.component.ts     # Composant principal
+│   ├── [app.routes.ts](http://_vscodecontentref_/1)        # Configuration des routes
+├── assets/                  # Ressources statiques
+├── [styles.scss](http://_vscodecontentref_/2)              # Styles globaux
+```
+
+## Technologies utilisées
+
+- **Framework** : Angular
+- **Langage** : TypeScript
+- **Styles** : TailwindCSS
+- **Icônes** : FontAwesome
+- **Tests** : Jasmine, Karma
+- **Linting** : ESLint, Prettier
