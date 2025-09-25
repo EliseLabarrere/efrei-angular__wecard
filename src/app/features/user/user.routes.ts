@@ -4,13 +4,13 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 
 export const USER_ROUTES: Routes = [
   {
-    path: 'user-profile',
+    path: 'profile',
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
   {
     path: '',
-    redirectTo: 'user-profile',
+    redirectTo: 'profile',
     pathMatch: 'full',
   },
 ];
