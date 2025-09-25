@@ -20,8 +20,20 @@ header {
     &__profile {
         @apply flex items-center gap-4;
 
-        &-btn {
+        &-admin {
+            @apply flex items-center justify-center h-10 w-10 rounded-full bg-primary/80 hover:bg-primary/60 text-white dark:text-gray-600 dark:hover:text-white transition-colors;
+        }
+
+        &-user {
             @apply flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 hover:bg-primary/20 text-gray-600 dark:text-gray-300 dark:hover:text-white transition-colors;
+        }
+
+        &-login {
+            @apply px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium;
+        }
+
+        &-register {
+            @apply px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors text-sm font-medium;
         }
     }
 }

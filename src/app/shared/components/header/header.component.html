@@ -1,22 +1,41 @@
 <header>
   <div class="header">
-    <h1 class="header__title">Collections wecards</h1>
+    <h1 class="header__title">Wecards</h1>
     <nav class="header__nav">
+      <a routerLink="/" class="header__nav-link">Accueil</a>
+      <a routerLink="/collection/explore" class="header__nav-link">Explorer</a>
       @if (currentUser()) {
-        <a routerLink="/" class="header__nav-link">Ma collection</a>
-        <a routerLink="/" class="header__nav-link">Mon compte</a>
-        @if (currentUser()?.isAdmin) {
-          <a routerLink="/admin" class="header__nav-link">Admin</a>
-        }
-        <button (click)="logout()" class="header__nav-link">Logout</button>
-      } @else {
-        <a routerLink="/auth/login" class="header__nav-link">Login</a>
-        <a routerLink="/auth/register" class="header__nav-link">Register</a>
+        <a routerLink="/collection/user/{{ currentUser()?.id }}" class="header__nav-link"
+          >Ma Collection</a
+        >
       }
     </nav>
     <div class="header__profile">
-      <!-- <button class="header__profile-btn"></button>
-      <button class="header__profile-btn"></button> -->
+      @if (currentUser()?.isAdmin) {
+        <a
+          routerLink="/admin/manage-chapters"
+          title="Gestion des chapitres"
+          class="header__profile-admin"
+          ><fa-icon class="icon" [icon]="faFilePen"></fa-icon
+        ></a>
+        <a
+          routerLink="/admin/manage-users"
+          title="Gestion des utilisateurs"
+          class="header__profile-admin"
+          ><fa-icon class="icon" [icon]="faUserPen"></fa-icon
+        ></a>
+      }
+      @if (currentUser()) {
+        <a routerLink="/user/profile" title="Profile" class="header__profile-user"
+          ><fa-icon class="icon" [icon]="faUser"></fa-icon
+        ></a>
+        <button (click)="logout()" title="Se déconnecter" class="header__profile-user">
+          <fa-icon class="icon" [icon]="faRightFromBracket"></fa-icon>
+        </button>
+      } @else {
+        <a routerLink="/auth/login" class="header__profile-login" href="#">Connexion</a>
+        <a routerLink="/auth/register" class="header__profile-register" href="#">Inscription</a>
+      }
     </div>
   </div>
 </header>
